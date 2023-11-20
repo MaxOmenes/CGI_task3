@@ -9,13 +9,13 @@ import javax.vecmath.*;
 import java.util.List;
 
 public class AffineTransformation {
-    int scaleX = 1, scaleY = 1, scaleZ = 1;
-    int rotateX = 0, rotateY = 0, rotateZ = 0;
-    int transitionX = 0, transitionY = 0, transitionZ = 0;
+    float scaleX = 1, scaleY = 1, scaleZ = 1;
+    float rotateX = 0, rotateY = 0, rotateZ = 0;
+    float transitionX = 0, transitionY = 0, transitionZ = 0;
 
-    public AffineTransformation(int scaleX, int scaleY, int scaleZ,
-                                int rotateX, int rotateY, int rotateZ,
-                                int transitionX, int transitionY, int transitionZ) {
+    public AffineTransformation(float scaleX, float scaleY, float scaleZ,
+                                float rotateX, float rotateY, float rotateZ,
+                                float transitionX, float transitionY, float transitionZ) {
         this.scaleX = scaleX;
         this.scaleY = scaleY;
         this.scaleZ = scaleZ;
@@ -30,75 +30,75 @@ public class AffineTransformation {
     public AffineTransformation() {
     }
 
-    public int getScaleX() {
+    public float getScaleX() {
         return scaleX;
     }
 
-    public void setScaleX(int scaleX) {
+    public void setScaleX(float scaleX) {
         this.scaleX = scaleX;
     }
 
-    public int getScaleY() {
+    public float getScaleY() {
         return scaleY;
     }
 
-    public void setScaleY(int scaleY) {
+    public void setScaleY(float scaleY) {
         this.scaleY = scaleY;
     }
 
-    public int getScaleZ() {
+    public float getScaleZ() {
         return scaleZ;
     }
 
-    public void setScaleZ(int scaleZ) {
+    public void setScaleZ(float scaleZ) {
         this.scaleZ = scaleZ;
     }
 
-    public int getRotateX() {
+    public float getRotateX() {
         return rotateX;
     }
 
-    public void setRotateX(int rotateX) {
+    public void setRotateX(float rotateX) {
         this.rotateX = rotateX;
     }
 
-    public int getRotateY() {
+    public float getRotateY() {
         return rotateY;
     }
 
-    public void setRotateY(int rotateY) {
+    public void setRotateY(float rotateY) {
         this.rotateY = rotateY;
     }
 
-    public int getRotateZ() {
+    public float getRotateZ() {
         return rotateZ;
     }
 
-    public void setRotateZ(int rotateZ) {
+    public void setRotateZ(float rotateZ) {
         this.rotateZ = rotateZ;
     }
 
-    public int getTransitionX() {
+    public float getTransitionX() {
         return transitionX;
     }
 
-    public void setTransitionX(int transitionX) {
+    public void setTransitionX(float transitionX) {
         this.transitionX = transitionX;
     }
 
-    public int getTransitionY() {
+    public float getTransitionY() {
         return transitionY;
     }
 
-    public void setTransitionY(int transitionY) {
+    public void setTransitionY(float transitionY) {
         this.transitionY = transitionY;
     }
 
-    public int getTransitionZ() {
+    public float getTransitionZ() {
         return transitionZ;
     }
 
-    public void setTransitionZ(int transitionZ) {
+    public void setTransitionZ(float transitionZ) {
         this.transitionZ = transitionZ;
     }
 
@@ -155,9 +155,12 @@ public class AffineTransformation {
     }
 
     public void calculate (List<Vector3f> vector){
-        Matrix4f matrix = transition();
+//        Matrix4f matrix = transition();
+//        matrix.sub(translateMatrix3To4(rotate()));
+//        matrix.sub(translateMatrix3To4(scale()));
+        Matrix4f matrix = translateMatrix3To4(scale());
         matrix.sub(translateMatrix3To4(rotate()));
-        matrix.sub(translateMatrix3To4(scale()));
+        matrix.sub(transition());
 
         for(Vector3f v:vector){
             Vector4f v4 = new Vector4f(v.getX(), v.getY(), v.getZ(), 1);
